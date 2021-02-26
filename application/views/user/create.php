@@ -1,7 +1,8 @@
+<?php global $arUser;?>
 <h1>Create new task.</h1>
 
-<? if ($_POST["task_text"]) : ?>
-   <?
+<?php if ($_POST["task_text"]) : ?>
+   <?php
    $new_create = true;
 
    $p_name = $arUser["login"] ? $arUser["login"] : '';
@@ -19,23 +20,23 @@
       $new_create = User::create($_POST["task_text"], $name, $email);
    }
    ?>
-   <? if ($new_create) : ?>
+   <?php if ($new_create) : ?>
       <div class="alert alert-success" role="alert">
          The task has been created.
       </div>
-   <? else : ?>
+   <?php else : ?>
       <div class="alert alert-danger" role="alert">
          The task has not been created. Try again.
       </div>
-   <? endif; ?>
-<? endif; ?>
+   <?php endif; ?>
+<?php endif; ?>
 
 <form method="POST" action="/user/create/" accept-charset="UTF-8" role="form" class="form-signin" name="create">
    <fieldset>
-      <? if (!$arUser["login"]) : ?>
+      <?php if (!$arUser["login"]) : ?>
          <input required class="form-control" placeholder="Name" name="name" type="text">
          <input class="form-control" placeholder="Email" name="email" type="text">
-      <? endif; ?>
+      <?php endif; ?>
       <div class="center input-group">
          <textarea class="form-control" name="task_text" required></textarea>
       </div>

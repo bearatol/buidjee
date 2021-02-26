@@ -1,8 +1,8 @@
 <?php
 
-return array(
-			'host' => 'localhost',
-			'dbname' => 'buidjee',
-			'user' => 'buidjee',
-			'password' => '',
-);
+return [
+    'host'     => 'localhost',
+    'dbname'   => 'bearatol_buidjee',
+    'user'     => 'root',
+    'password' => ''
+];
