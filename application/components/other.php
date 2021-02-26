@@ -15,7 +15,7 @@ class User
             $stmt->execute([$_SESSION["str_access"]]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
-                return $result;
+                return $_SESSION["arUser"] = $result;
             }
 
             return false;
@@ -30,27 +30,27 @@ class Task
     public static function all_quantity($login = '')
     {
         $db   = Db::getConnection();
-        $sql  = !empty($login) ? "SELECT COUNT(*) FROM tasks WHERE login = ?" : "SELECT COUNT(*) FROM tasks";
+        $sql  = $login !== '' ? "SELECT COUNT(*) FROM tasks WHERE login = ?" : "SELECT COUNT(*) FROM tasks";
         $stmt = $db->prepare($sql);
         $stmt->execute(
             [$login]
         );
-        $result = $stmt->fetch()[0];
-        return $result;
+        return $stmt->fetch()[0];
     }
 
     public static function getList($login = '', $art = 0, $coun = 3, $sort = "id", $order = "ASC")
     {
         $db   = Db::getConnection();
-        $sql  = !empty($login) ? "SELECT * FROM tasks WHERE login = ? ORDER BY {$sort} {$order} LIMIT {$art},{$coun}" : "SELECT * FROM tasks ORDER BY {$sort} {$order} LIMIT {$art},{$coun}";
+        $sql  = $login !== '' ? "SELECT * FROM tasks WHERE login = ? ORDER BY {$sort} {$order} LIMIT {$art},{$coun}" : "SELECT * FROM tasks ORDER BY {$sort} {$order} LIMIT {$art},{$coun}";
         $stmt = $db->prepare($sql);
         $stmt->execute(
             [$login]
         );
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (!empty($result))
+        if (!empty($result)) {
             return $result;
+        }
 
         return false;
     }
@@ -71,7 +71,7 @@ class some_functions
                 } elseif ($k == $name && $del === true) {
                     continue;
                 } else {
-                    $url .= $i != 0 ? "&" : '';
+                    $url .= $i !== 0 ? "&" : '';
                     $url .= $k . "=" . $v;
                 }
                 $i++;
@@ -86,4 +86,5 @@ class some_functions
         return $url;
     }
 }
+
 

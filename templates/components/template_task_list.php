@@ -1,26 +1,5 @@
 <?php
-global $arUser;
-if (!empty($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-$only_user_task = !empty($only_user_task) ? $only_user_task : false;
-$coun = 3;  //quantity tasks for output 
-$art  = ($page * $coun) - $coun;
-$all_quantity = OTHER\Task::all_quantity($only_user_task ? $arUser["login"] : '');
-if ($all_quantity > $coun) {
-    $str_pag = ceil($all_quantity / $coun); //quantity pages
-}
 
-if (!empty($_GET['sort'])) {
-    $sort = $_GET['sort'];
-} else {
-    $sort = 'id';
-}
-
-
-$arResult_list = OTHER\Task::getList($only_user_task ? $arUser["login"] : '', $art, $coun, $sort);
 ?>
 
 <div class="task_list">
@@ -55,7 +34,7 @@ $arResult_list = OTHER\Task::getList($only_user_task ? $arUser["login"] : '', $a
                     <span class="num"><b><?= $iKey + 1 + $art ?></b></span>
                 </div>
                 <div class="center input-group">
-                    <?php if ($arUser["login"] == 'admin' || $arUser["login"] == $iValue['login']) : ?>
+                    <?php if ($_SESSION["arUser"]["login"] == 'admin' || $_SESSION["arUser"]["login"] == $iValue['login']) : ?>
                         <textarea class="form-control" data-id="<?= $iValue['id'] ?>">
                      <?= $task_text ?>
                   </textarea>
@@ -70,7 +49,7 @@ $arResult_list = OTHER\Task::getList($only_user_task ? $arUser["login"] : '', $a
                   <i><?= !empty($iValue['email']) ? $iValue['email'] : '' ?></i>
                </span>
                     <span class="status">
-                  <?php if ($arUser["login"] == 'admin' || $arUser["login"] == $iValue['login']) : ?>
+                  <?php if ($_SESSION["arUser"]["login"] == 'admin' || $_SESSION["arUser"]["login"] == $iValue['login']) : ?>
                       <select class="custom-select" data-id="<?= $iValue['id'] ?>">
                         <option value="active" <?= $iValue['status'] == 'active' ? 'selected' : '' ?>>active</option>
                         <option value="close" <?= $iValue['status'] == 'close' ? 'selected' : '' ?>>close</option>

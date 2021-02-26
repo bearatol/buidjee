@@ -1,5 +1,5 @@
 <?php
-$arUser = OTHER\User::getUser();
+OTHER\User::getUser();
 $url = Router::getURI();
 //phpinfo();
 ?>
@@ -44,10 +44,10 @@ $url = Router::getURI();
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <?php if (!empty($arUser["login"])) : ?>
+                    <?php if (!empty($_SESSION["arUser"]["login"])) : ?>
                         <li class="nav-item">
                             <a href="/user/" class="nav-link active">
-                                <b><?= $arUser["login"] ?></b>
+                                <b><?= $_SESSION["arUser"]["login"] ?></b>
                             </a>
                         </li>
                         <li class="nav-item">

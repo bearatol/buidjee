@@ -1,12 +1,11 @@
-<?php global $arUser;?>
 <h1>Create new task.</h1>
 
 <?php if ($_POST["task_text"]) : ?>
    <?php
    $new_create = true;
 
-   $p_name = $arUser["login"] ? $arUser["login"] : '';
-   $p_email = $arUser["email"] ? $arUser["email"] : '';
+   $p_name = $_SESSION["arUser"]["login"] ? $_SESSION["arUser"]["login"] : '';
+   $p_email = $_SESSION["arUser"]["email"] ? $_SESSION["arUser"]["email"] : '';
 
    $name = $_POST["name"] ? $_POST["name"] : $p_name;
    $email = $_POST["email"] ? $_POST["email"] : $p_email;
@@ -33,7 +32,7 @@
 
 <form method="POST" action="/user/create/" accept-charset="UTF-8" role="form" class="form-signin" name="create">
    <fieldset>
-      <?php if (!$arUser["login"]) : ?>
+      <?php if (!$_SESSION["arUser"]["login"]) : ?>
          <input required class="form-control" placeholder="Name" name="name" type="text">
          <input class="form-control" placeholder="Email" name="email" type="text">
       <?php endif; ?>

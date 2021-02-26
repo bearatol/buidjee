@@ -1,6 +1,5 @@
 <h1>User page</h1>
-
-<?php if (!empty($arUser["login"])) { ?>
+<?php if (!empty($_SESSION["arUser"]["login"])) { ?>
     <?php
     $only_user_task = true;
     include ROOT . '/templates/components/template_task_list.php';

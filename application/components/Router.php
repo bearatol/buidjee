@@ -8,6 +8,7 @@ class Router
 	public function __construct()
 	{
 		include ROOT . '/application/components/other.php';
+        OTHER\User::getUser();
 
 		$routesPath = ROOT. '/application/config/routes.php';
 		$this->routes = include($routesPath);
