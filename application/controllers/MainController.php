@@ -4,7 +4,7 @@ include_once ROOT . '/application/models/Main.php';
 class MainController
 {
 
-    public static function taskList(int $count, bool $only_user_task = false)
+    public static function taskList(int $count)
     {
         if (!empty($_GET['page']) && $_GET['page'] > 0) {
             $page = $_GET['page'];
@@ -18,12 +18,15 @@ class MainController
         }
 
         $art          = ($page * $count) - $count;
-        $all_quantity = OTHER\Task::all_quantity($only_user_task ? $_SESSION["arUser"]["login"] : '');
+        $all_quantity = OTHER\Task::all_quantity('');
         if ($all_quantity > $count) {
             $str_pag = ceil($all_quantity / $count); //quantity pages
         }
 
-        return OTHER\Task::getList($only_user_task ? $_SESSION["arUser"]["login"] : '', $art, $count, $sort);
+        $ar_result_tasklist["list"] = OTHER\Task::getList('', $art, $count, $sort);
+        $ar_result_tasklist["str_pag"] = $str_pag;
+        $ar_result_tasklist["page"] = $page;
+        return $ar_result_tasklist;
     }
 
     public function actionIndex()
