@@ -45,10 +45,12 @@
     </form>
 
 <?php elseif ($_GET['page'] == 'logout') : ?>
-    <?php unset($_SESSION["str_access"]); ?>
-    <script>
-        window.location.href = '/user/?page=auth'
-    </script>
+    <?php
+    unset($_SESSION["str_access"], $_SESSION["arUser"]);
+    header('Location: /user/?page=auth');
+    exit;
+    ?>
 <?php else : ?>
     <?php include __DIR__ . '/user_task_list.php'; ?>
 <?php endif; ?>
+

@@ -1,13 +1,13 @@
 <?php
 
-class NotfoundController
+use View\View;
+
+class NotfoundController extends View
 {
 
     public function actionIndex()
     {
-        require_once(ROOT . '/templates/header.php');
-        require_once(ROOT . '/application/views/notfound/index.php');
-        require_once(ROOT . '/templates/footer.php');
+        $this->render('notfound/index');
 
         return true;
     }

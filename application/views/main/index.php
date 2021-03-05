@@ -1,17 +1,16 @@
 <?php
 /**
- * @var array $ar_result_tasklist
+ * @var array $list
+ * @var string $str_pag
+ * @var string $page
+ * @var string $art
  */
-?>
-
-<?php
-var_dump($ar_result_tasklist);
 ?>
 
 <h1>Main page</h1>
 
 <div class="task_list">
-    <?php if (!empty($ar_result_tasklist['list'])) : ?>
+    <?php if (!empty($list)) : ?>
 
         <?php
         $sort_active_login = !empty($_GET['sort']) && $_GET['sort'] == 'login' ? true : false;
@@ -36,7 +35,7 @@ var_dump($ar_result_tasklist);
             </div>
         </div>
         <?php /*                 end_sort                  */ ?>
-        <?php foreach ($ar_result_tasklist["list"] as $iKey => $iValue) : ?>
+        <?php foreach ($list as $iKey => $iValue) : ?>
             <?php $task_text = strip_tags($iValue['task_text']); ?>
             <div class="item">
                 <div class="top">
@@ -73,10 +72,10 @@ var_dump($ar_result_tasklist);
             </div>
         <?php endforeach; ?>
         <?php /*                  pagination                  */ ?>
-        <?php if ($ar_result_tasklist["str_pag"]) : ?>
+        <?php if ($str_pag) : ?>
             <ul class="pagination justify-content-center mt-4">
-                <?php for ($i = 1; $i <= $ar_result_tasklist["str_pag"]; $i++) : ?>
-                    <?php if ($ar_result_tasklist["page"] == $i) : ?>
+                <?php for ($i = 1; $i <= $str_pag; $i++) : ?>
+                    <?php if ($page == $i) : ?>
                         <li class="page-item active">
                             <a class="page-link"><?= $i ?></a>
                         </li>
