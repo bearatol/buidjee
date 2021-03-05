@@ -1,41 +1,32 @@
 <?php
-/**
- * @var array $list
- * @var string $str_pag
- * @var string $page
- * @var string $art
- */
+
 ?>
 
-<h1>Main page</h1>
-
 <div class="task_list">
-    <?php if (!empty($list)) : ?>
-
-        <?php
-        $sort_active_login = !empty($_GET['sort']) && $_GET['sort'] == 'login' ? true : false;
-        $sort_active_email = !empty($_GET['sort']) && $_GET['sort'] == 'email' ? true : false;
-        $sort_active_status = !empty($_GET['sort']) && $_GET['sort'] == 'status' ? true : false;
-        ?>
-
+    <?php if (!empty($arResult_list)) : ?>
         <a class="btn btn-primary mt-4" href="/user/create/">Create new-></a>
         <?php /*                  sort                  */ ?>
-        <div class="sort content mt-4">
-            <h2>Sort:</h2>
-            <div class="sort_list">
-                <a href="<?= OTHER\some_functions::setGET('sort', 'login', $sort_active_login); ?>" class="btn <?= $sort_active_login ? 'btn-dark' : 'btn-primary' ?>">
-                    by name
-                </a>
-                <a href="<?= OTHER\some_functions::setGET('sort', 'email', $sort_active_email); ?>" class="btn <?= $sort_active_email ? 'btn-dark' : 'btn-primary' ?>">
-                    by email
-                </a>
-                <a href="<?= OTHER\some_functions::setGET('sort', 'status', $sort_active_status) ?>" class="btn <?= $sort_active_status ? 'btn-dark' : 'btn-primary' ?>">
-                    by status
-                </a>
+        <?php if (!$only_user_task): ?>
+            <div class="sort content mt-4">
+                <h2>Sort:</h2>
+                    <div class="sort_list">
+                        <?php $sort_active = !empty($_GET['sort']) && $_GET['sort'] == 'login' ? true : false; ?>
+                        <a href="<?= OTHER\some_functions::setGET('sort', 'login', $sort_active); ?>" class="btn <?= $sort_active ? 'btn-dark' : 'btn-primary' ?>">
+                            by name
+                        </a>
+                        <?php $sort_active = !empty($_GET['sort']) && $_GET['sort'] == 'email' ? true : false; ?>
+                        <a href="<?= OTHER\some_functions::setGET('sort', 'email', $sort_active); ?>" class="btn <?= $sort_active ? 'btn-dark' : 'btn-primary' ?>">
+                            by email
+                        </a>
+                        <?php $sort_active = !empty($_GET['sort']) && $_GET['sort'] == 'status' ? true : false; ?>
+                        <a href="<?= OTHER\some_functions::setGET('sort', 'status', $sort_active); ?>" class="btn <?= $sort_active ? 'btn-dark' : 'btn-primary' ?>">
+                            by status
+                        </a>
+                    </div>
             </div>
-        </div>
-        <?php /*                 end_sort                  */ ?>
-        <?php foreach ($list as $iKey => $iValue) : ?>
+        <?php endif; ?>
+        <?php /*                 /sort                  */ ?>
+        <?php foreach ($arResult_list as $iKey => $iValue) : ?>
             <?php $task_text = strip_tags($iValue['task_text']); ?>
             <div class="item">
                 <div class="top">
@@ -89,11 +80,10 @@
                 <?php endfor; ?>
             </ul>
         <?php endif; ?>
-        <?php /*                 end_pagination                  */ ?>
+        <? /*                 /pagination                  */ ?>
     <?php else : ?>
         <p>
             Task not found. <a class="btn btn-primary" href="/user/create/">Create new-></a>
         </p>
     <?php endif; ?>
 </div>
-

@@ -1,11 +1,11 @@
 <h1>Create new task.</h1>
 
-<? if ($_POST["task_text"]) : ?>
-   <?
+<?php if ($_POST["task_text"]) : ?>
+   <?php
    $new_create = true;
 
-   $p_name = $arUser["login"] ? $arUser["login"] : '';
-   $p_email = $arUser["email"] ? $arUser["email"] : '';
+   $p_name = $_SESSION["arUser"]["login"] ? $_SESSION["arUser"]["login"] : '';
+   $p_email = $_SESSION["arUser"]["email"] ? $_SESSION["arUser"]["email"] : '';
 
    $name = $_POST["name"] ? $_POST["name"] : $p_name;
    $email = $_POST["email"] ? $_POST["email"] : $p_email;
@@ -19,23 +19,23 @@
       $new_create = User::create($_POST["task_text"], $name, $email);
    }
    ?>
-   <? if ($new_create) : ?>
+   <?php if ($new_create) : ?>
       <div class="alert alert-success" role="alert">
          The task has been created.
       </div>
-   <? else : ?>
+   <?php else : ?>
       <div class="alert alert-danger" role="alert">
          The task has not been created. Try again.
       </div>
-   <? endif; ?>
-<? endif; ?>
+   <?php endif; ?>
+<?php endif; ?>
 
 <form method="POST" action="/user/create/" accept-charset="UTF-8" role="form" class="form-signin" name="create">
    <fieldset>
-      <? if (!$arUser["login"]) : ?>
+      <?php if (!$_SESSION["arUser"]["login"]) : ?>
          <input required class="form-control" placeholder="Name" name="name" type="text">
          <input class="form-control" placeholder="Email" name="email" type="text">
-      <? endif; ?>
+      <?php endif; ?>
       <div class="center input-group">
          <textarea class="form-control" name="task_text" required></textarea>
       </div>

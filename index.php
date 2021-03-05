@@ -1,4 +1,6 @@
-<?
+<?php
+header('Content-Type: text/html; charset=UTF-8');
+
 // 1. Общие настройки
 session_start();
 //ini_set('display_errors', 1);
@@ -6,7 +8,8 @@ session_start();
 
 // 2. Подключение файлов системы
 
-define('ROOT', dirname(__FILE__));
+//define('ROOT', dirname(__FILE__));
+define('ROOT', $_SERVER["DOCUMENT_ROOT"]);
 require_once(ROOT . '/application/components/Router.php');
 require_once(ROOT . '/application/components/Db.php');
 
