@@ -1,23 +1,26 @@
 <?php
 /**
- * @var array $ar_result_tasklist
+ * @var array $list
+ * @var string $str_pag
+ * @var string $page
+ * @var string $art
  */
 ?>
 
 <h1>User page</h1>
 <?php if (!empty($_SESSION["arUser"]["login"])) { ?>
     <div class="task_list">
-        <?php if (!empty($ar_result_tasklist)) : ?>
+        <?php if (!empty($list)) : ?>
             <a class="btn btn-primary mt-4" href="/user/create/">Create new-></a>
             <?php /*                  sort                  */ ?>
 
             <?php /*                 /sort                  */ ?>
-            <?php foreach ($ar_result_tasklist["list"] as $iKey => $iValue) : ?>
+            <?php foreach ($list as $iKey => $iValue) : ?>
                 <?php $task_text = strip_tags($iValue['task_text']); ?>
                 <div class="item">
                     <div class="top">
                         <span class="name"><i><?= $iValue['login'] ?></i></span>
-                        <span class="num"><b><?= $iKey + 1 + $ar_result_tasklist["art"] ?></b></span>
+                        <span class="num"><b><?= $iKey + 1 + $art ?></b></span>
                     </div>
                     <div class="center input-group">
                         <?php if ($_SESSION["arUser"]["login"] == 'admin' || $_SESSION["arUser"]["login"] == $iValue['login']) : ?>
@@ -48,10 +51,10 @@
                 </div>
             <?php endforeach; ?>
             <?php /*                  pagination                  */ ?>
-            <?php if ($ar_result_tasklist["str_pag"]) : ?>
+            <?php if ($str_pag) : ?>
                 <ul class="pagination justify-content-center mt-4">
-                    <?php for ($i = 1; $i <= $ar_result_tasklist["str_pag"]; $i++) : ?>
-                        <?php if ($ar_result_tasklist["page"] == $i) : ?>
+                    <?php for ($i = 1; $i <= $str_pag; $i++) : ?>
+                        <?php if ($page == $i) : ?>
                             <li class="page-item active">
                                 <a class="page-link"><?= $i ?></a>
                             </li>
